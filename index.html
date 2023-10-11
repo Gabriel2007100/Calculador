@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadera</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select {
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input id="primeiro" placeholder="Primeiro valor">
+        <select id="operacao">
+            <option value="soma"> + </option>
+            <option value="subtracao"> - </option>
+            <option value="multiplicacao"> x </option>
+            <option value="divisao"> ÷ </option>
+        </select>
+        <input id="segundo" placeholder="Segundo valor">
+        <button id="btn"> Calcular </button>
+        <p id="resultado">Resultado: </p>
+    </div>
+    <script>
+        document.getElementById('btn').addEventListener('click', function () {
+            var primeiroValor = parseFloat(document.getElementById('primeiro').value);
+            var segundoValor = parseFloat(document.getElementById('segundo').value);
+            var operacao = document.getElementById('operacao').value;
+            var resultadoElement = document.getElementById('resultado');
+
+            if (isNaN(primeiroValor) || isNaN(segundoValor)) {
+                resultadoElement.textContent = 'Valores inválidos';
+                return;
+            }
+
+            var resultado;
+
+            switch (operacao) {
+                case 'soma':
+                    resultado = primeiroValor + segundoValor;
+                    break;
+                case 'subtracao':
+                    resultado = primeiroValor - segundoValor;
+                    break;
+                case 'multiplicacao':
+                    resultado = primeiroValor * segundoValor;
+                    break;
+                case 'divisao':
+                    if (segundoValor !== 0) {
+                        resultado = primeiroValor / segundoValor;
+                    } else {
+                        resultadoElement.textContent = 'Não é possível dividir por zero';
+                        return;
+                    }
+                    break;
+                default:
+                    resultadoElement.textContent = 'Operação inválida';
+                    return;
+            }
+
+            resultadoElement.textContent = 'Resultado: ' + resultado.toFixed(2);
+        });
+    </script>
+</body>
+</html>
